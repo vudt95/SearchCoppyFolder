@@ -3,7 +3,6 @@ using NLog;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using NLog;
 using NLog.Extensions.Logging;
 
 namespace SearchCoppyFolder
@@ -27,17 +26,27 @@ namespace SearchCoppyFolder
                     Console.WriteLine("Choose an option:");
                     Console.WriteLine("1) Scanner folder and coppy");
                     Console.WriteLine("2) Scanner folder not found");
-                    Console.WriteLine("3) Exit");
+                    Console.WriteLine("3) Scanner read name file");
+                    Console.WriteLine("4) Scanner coppy all file");
+                    Console.WriteLine("5) Exit");
                     Console.Write("\r\nSelect an option: ");
                     switch (Console.ReadLine())
                     {
                         case "1":
                             var runner = servicesProvider.GetRequiredService<Runner>();
-                            runner.DoAction("Coppy folder", true);
+                            runner.DoAction("Scanner folder and coppy", true);
                             break;
                         case "2":
                             var runner1 = servicesProvider.GetRequiredService<Runner>();
-                            runner1.DoAction("Coppy folder");
+                            runner1.DoAction("Scanner folder not found");
+                            break;
+                        case "3":
+                            var runner2 = servicesProvider.GetRequiredService<Runner>();
+                            runner2.ReadNameAllFiles("Scanner read name file");
+                            break;
+                        case "4":
+                            var runner3 = servicesProvider.GetRequiredService<Runner>();
+                            runner3.CoppyAllFile("Scanner coppy all file");
                             break;
                     }
                     Console.WriteLine("Press ANY key to exit");

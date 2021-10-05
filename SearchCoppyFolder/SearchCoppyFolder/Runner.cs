@@ -18,10 +18,17 @@ namespace SearchCoppyFolder
         }
 
         private ConfigJson _config;
-        private List<string> FolderNotFounds;
+        private List<string> _folderNotFounds;
+
+        #region Ver1
+        /// <summary>
+        /// Thực hiện công việc tìm và lưu thư mục khác
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="isCoppy"></param>
         public async void DoAction(string name, bool isCoppy = false)
         {
-            _config = ConfigExtentions.GetConfig();
+            _config = ConfigExtensions.GetConfig();
             Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | Read All folder and subfolder | {_config.FolderSearch}...");
             var dirs = Directory.GetDirectories(_config.FolderSearch, "*", SearchOption.AllDirectories);
             if (!dirs.Any())
@@ -35,28 +42,43 @@ namespace SearchCoppyFolder
                 Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | WARNING | Not found file {_config.FileCoppy}...");
                 return;
             }
-            var folderNeedSearch = File.ReadAllLines(_config.FileCoppy);
-            Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | Start coppy...");
-            FolderNotFounds = new List<string>();
-            Parallel.ForEach(folderNeedSearch, (s, state) =>
+            var folderNeedSearch = await File.ReadAllLinesAsync(_config.FileCoppy);
+            Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | Start {(isCoppy ? "coppy" : "read")}...");
+            _folderNotFounds = new List<string>();
+            Parallel.ForEach(folderNeedSearch, (s, _) =>
             {
                 Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | Search: {s.Trim()}");
-                var pathFolder = dirs.FirstOrDefault(x => x.Contains(s.Trim()));
-                if (pathFolder != null)
+                try
                 {
-                    if (isCoppy)
-                        DirectoryCopy(pathFolder, $"{_config.FolderCoppy}/{s}", true);
+                    var pathFolder = dirs.FirstOrDefault(x => x.Contains(s.Trim()));
+                    if (pathFolder != null)
+                    {
+                        if (isCoppy)
+                            DirectoryCopy(pathFolder, $"{_config.FolderCoppy}/{s}", true);
+                    }
+                    else
+                    {
+                        _folderNotFounds.Add(s);
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    FolderNotFounds.Add(s);
+                    Console.WriteLine(e);
                 }
+
             });
-            if (FolderNotFounds.Any())
-                await File.WriteAllLinesAsync($"{_config.PathSaveFileNotFound}/FolderNotFound-{DateTime.Now:ddMMyyyy}.txt", FolderNotFounds);
+            if (_folderNotFounds.Any())
+                await File.WriteAllLinesAsync($"{_config.PathSaveFileNotFound}/FolderNotFound-{DateTime.Now:ddMMyyyy}.txt", _folderNotFounds);
             _logger.LogDebug(20, $"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | SUCCESS | {name}");
+            Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | SUCCESS | {name}");
         }
 
+        /// <summary>
+        /// Tìm file cần coppy
+        /// </summary>
+        /// <param name="paths"></param>
+        /// <param name="searchName"></param>
+        /// <returns></returns>
         public bool SearchFolder(string[] paths, string searchName)
         {
             var folder = paths.FirstOrDefault(x => x.Equals(searchName));
@@ -66,7 +88,12 @@ namespace SearchCoppyFolder
             DirectoryCopy(folder, _config.FolderCoppy, true);
             return true;
         }
-
+        /// <summary>
+        /// Thực hiện coppy thư mục
+        /// </summary>
+        /// <param name="sourceDirName"></param>
+        /// <param name="destDirName"></param>
+        /// <param name="copySubDirs"></param>
         private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
         {
             // Get the subdirectories for the specified directory.
@@ -92,23 +119,115 @@ namespace SearchCoppyFolder
             }
 
             // Get the files in the directory and copy them to the new location.
-            FileInfo[] files = dir.GetFiles();
-            foreach (FileInfo file in files)
+            var files = dir.GetFiles();
+            foreach (var file in files)
             {
-                string tempPath = Path.Combine(destDirName, file.Name);
+                var tempPath = Path.Combine(destDirName, file.Name);
                 file.CopyTo(tempPath, false);
             }
 
             // If copying subdirectories, copy them and their contents to new location.
-            if (copySubDirs)
+            if (!copySubDirs) return;
             {
-                foreach (DirectoryInfo subdir in dirs)
+                foreach (var subdir in dirs)
                 {
-                    string tempPath = Path.Combine(destDirName, subdir.Name);
+                    var tempPath = Path.Combine(destDirName, subdir.Name);
                     if (Directory.Exists(tempPath))
-                        DirectoryCopy(subdir.FullName, tempPath, copySubDirs);
+                        DirectoryCopy(subdir.FullName, tempPath, true);
                 }
             }
+        }
+        #endregion
+
+        public async void ReadNameAllFiles(string name)
+        {
+            _config = ConfigExtensions.GetConfig();
+            if (_config == null)
+            {
+                Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | ERROR | Can't read file config");
+                return;
+            }
+            Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | Read all name file | {_config.PathFileWrite}...");
+            try
+            {
+                var files = Directory.GetFiles(_config.PathFileWrite, "*", SearchOption.AllDirectories);
+                if (!Directory.Exists(_config.PathSaveFileWrite))
+                {
+                    Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | Create folder | {_config.PathSaveFileWrite}...");
+                    Directory.CreateDirectory(_config.PathSaveFileWrite);
+                }
+
+                if (files.Any())
+                {
+                    await File.WriteAllLinesAsync($"{_config.PathSaveFileWrite}/FileNameWrite-{DateTime.Now:ddMMyyyyhhmmss}.txt", files.Select(x => x[(x.LastIndexOf('\\') + 1)..]));
+                }
+                else
+                {
+                    Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | WARNING | not found");
+                }
+                Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | SUCCESS | {name}");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                _logger.LogError(e, "ReadNameAllFiles");
+            }
+        }
+
+        public void CoppyAllFile(string name)
+        {
+            _config = ConfigExtensions.GetConfig();
+            if (_config == null)
+            {
+                Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | ERROR | Can't read file config");
+                return;
+            }
+            Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | Read all name file | {_config.PathFolderCoppy}...");
+            try
+            {
+                if (!Directory.Exists(_config.PathSaveFolderCoppy))
+                {
+                    Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | Create folder | {_config.PathSaveFolderCoppy}...");
+                    Directory.CreateDirectory(_config.PathSaveFolderCoppy);
+                }
+                CopyAllFile(_config.PathFolderCoppy, _config.PathSaveFolderCoppy);
+                Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | SUCCESS | {name}");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                _logger.LogError(e, "CoppyAllFile");
+            }
+        }
+
+        private void CopyAllFile(string sourceDir, string targetDir)
+        {
+            Parallel.ForEach(Directory.GetFiles(sourceDir), (s, _) =>
+            {
+                try
+                {
+                    Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | Coppy | {s}...");
+                    File.Copy(s, Path.Combine(targetDir, Path.GetFileName(s)), true);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    _logger.LogError(e, "CopyAllFile");
+                }
+
+            });
+            Parallel.ForEach(Directory.GetDirectories(sourceDir), (s, _) =>
+            {
+                try
+                {
+                    CopyAllFile(s, targetDir);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    _logger.LogError(e, "CopyAllFile");
+                }
+            });
         }
     }
 }

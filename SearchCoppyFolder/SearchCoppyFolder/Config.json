@@ -1,6 +1,14 @@
-{
-  "FolderSearch": "D:\\Download\\Compresseds\\qltrgis\\bootstrap",
-  "FileCoppy": "C:\\Project\\SearchCoppyFolder\\SearchCoppyFolder\\bin\\Debug\\net5.0\\FileFolder.txt",
+﻿{
+  "FolderSearch": "D:\\Works\\Leopards\\Tasks\\HIS Ver2\\Project\\leohis-web-api\\leohis-api",
+  "FileCoppy": "D:\\Works\\Leopards\\Projects\\SearchCoppyFolder.git\\trunk\\SearchCoppyFolder\\SearchCoppyFolder\\bin\\Debug\\net5.0\\FileFolder.txt",
   "FolderCoppy": "D:\\testcoppy",
-  "PathSaveFileNotFound": "D:\\testcoppy"
+  "PathSaveFileNotFound": "D:\\testcoppy",
+  // Thư mục sau khi hoàn thành đọc tên file thì lưu vào
+  "PathSaveFileWrite": "D:\\testcoppy",
+  // Thư mục chứa các tên file cần đọc tên file
+  "PathFileWrite": "D:\\Works\\Leopards\\Download",
+  // Thư mục cần coppy
+  "PathFolderCoppy": "D:\\Pictures",
+  // Thư mục chứa file coppy
+  "PathSaveFolderCoppy": "D:\\testcoppy"
 }
