@@ -115,7 +115,7 @@ namespace SearchCoppyFolder
             }
             else
             {
-                Directory.CreateDirectory(destDirName);
+                Directory.CreateDirectory(destDirName!);
             }
 
             // Get the files in the directory and copy them to the new location.
@@ -136,6 +136,50 @@ namespace SearchCoppyFolder
                         DirectoryCopy(subdir.FullName, tempPath, true);
                 }
             }
+        }
+        /// <summary>
+        /// Thực hiện công việc tìm và coppy thư mục + file cần tìm
+        /// </summary>
+        /// <param name="name"></param>
+        public async void CoppyFolderFile(string name)
+        {
+            _config = ConfigExtensions.GetConfig();
+            Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | Read all folder name need coppy | {_config.FileCoppy}...");
+            if (!File.Exists(_config.FileCoppy))
+            {
+                Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | WARNING | Not found file {_config.FileCoppy}...");
+                return;
+            }
+            var folderNeedSearch = await File.ReadAllLinesAsync(_config.FileCoppy);
+            Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | Start coppy...");
+            _folderNotFounds = new List<string>();
+            //foreach (var s in folderNeedSearch)
+            //{
+            //    Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | Search: {s.Trim()}");
+            //    try
+            //    {
+            //        CopyAllFileSearch(_config.FolderSearch, _config.FolderCoppy, s);
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        Console.WriteLine(e);
+            //    }
+            //}
+            Parallel.ForEach(folderNeedSearch, (s, _) =>
+            {
+                Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | Search: {s.Trim()}");
+                try
+                {
+                    CopyAllFileSearch(_config.FolderSearch, _config.FolderCoppy, s);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+
+            });
+            _logger.LogDebug(20, $"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | SUCCESS | {name}");
+            Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | SUCCESS | {name}");
         }
         #endregion
 
@@ -227,6 +271,91 @@ namespace SearchCoppyFolder
                     Console.WriteLine(e);
                     _logger.LogError(e, "CopyAllFile");
                 }
+            });
+        }
+
+        private void CopyAllFileSearch(string sourceDir, string targetDir, string search)
+        {
+            var arrAllFileSearch = Directory.GetFiles(sourceDir, search, SearchOption.AllDirectories);
+            var pathRootName = sourceDir.Split('\\')[^1];
+            var indexRoot = sourceDir.Split('\\').Length - 1;
+            //foreach (var s in arrAllFileSearch)
+            //{
+            //    try
+            //    {
+            //        var arPath = Path.GetDirectoryName(s)!.Split('\\');
+            //        var pathTemp = arPath[^1];
+
+
+            //        var targetPathTemp = targetDir;
+            //        if (!pathTemp.Contains(":") && pathTemp != pathRootName)
+            //        {
+            //            var folderCoppy = targetPathTemp;
+            //            for (var i = indexRoot; i < arPath.Length; i++)
+            //            {
+            //                folderCoppy = Path.Combine(folderCoppy, arPath[i]);
+            //            }
+
+            //            targetPathTemp = folderCoppy;
+            //            // If the destination directory doesn't exist, create it.
+            //            if (!Directory.Exists(folderCoppy))
+            //            {
+            //                Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | Create folder | {s}...");
+            //                Directory.CreateDirectory(folderCoppy!);
+            //            }
+            //        }
+            //        else
+            //        {
+            //            targetPathTemp = Path.Combine(targetPathTemp, pathTemp);
+            //        }
+            //        Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | Coppy | {s}...");
+            //        File.Copy(s, Path.Combine(targetPathTemp, Path.GetFileName(s)), true);
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        Console.WriteLine(e);
+            //        _logger.LogError(e, "CopyAllFile");
+            //    }
+            //}
+
+            Parallel.ForEach(arrAllFileSearch, (s, _) =>
+            {
+                try
+                {
+                    var arPath = Path.GetDirectoryName(s)!.Split('\\');
+                    var pathTemp = arPath[^1];
+
+
+                    var targetPathTemp = targetDir;
+                    if (!pathTemp.Contains(":") && pathTemp != pathRootName)
+                    {
+                        var folderCoppy = targetPathTemp;
+                        for (var i = indexRoot; i < arPath.Length; i++)
+                        {
+                            folderCoppy = Path.Combine(folderCoppy, arPath[i]);
+                        }
+
+                        targetPathTemp = folderCoppy;
+                        // If the destination directory doesn't exist, create it.
+                        if (!Directory.Exists(folderCoppy))
+                        {
+                            Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | Create folder | {s}...");
+                            Directory.CreateDirectory(folderCoppy!);
+                        }
+                    }
+                    else
+                    {
+                        targetPathTemp = Path.Combine(targetPathTemp, pathTemp);
+                    }
+                    Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | Coppy | {s}...");
+                    File.Copy(s, Path.Combine(targetPathTemp, Path.GetFileName(s)), true);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    _logger.LogError(e, "CopyAllFile");
+                }
+
             });
         }
     }

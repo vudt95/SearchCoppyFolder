@@ -1,0 +1,52 @@
+2022-09-06 14:55:08.9903 Info Message Template Auto Format enabled
+2022-09-06 14:55:09.0574 Info Adding target FileTarget(Name=allfile)
+2022-09-06 14:55:09.0574 Info Adding target FileTarget(Name=errorfile)
+2022-09-06 14:55:09.0574 Info Adding target FileTarget(Name=infofile)
+2022-09-06 14:55:09.0789 Info Validating config: TargetNames=allfile, errorfile, infofile, ConfigItems=72, FilePath=D:\Works\Leopards\Projects\SearchCoppyFolder\SearchCoppyFolder\SearchCoppyFolder\bin\Debug\net6.0\NLog.config
+2022-09-06 14:55:09.0789 Info Configuration initialized.
+2022-09-06 14:55:09.0789 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.0.1.1159. Product version: 5.0.1+a3718b8417284a90b0f73b2cbba47bc4067f6a3a. GlobalAssemblyCache: False
+2022-09-06 14:55:27.0113 Info Message Template Auto Format enabled
+2022-09-06 14:55:27.0823 Info Adding target FileTarget(Name=allfile)
+2022-09-06 14:55:27.0823 Info Adding target FileTarget(Name=errorfile)
+2022-09-06 14:55:27.0823 Info Adding target FileTarget(Name=infofile)
+2022-09-06 14:55:27.1040 Info Validating config: TargetNames=allfile, errorfile, infofile, ConfigItems=72, FilePath=D:\Works\Leopards\Projects\SearchCoppyFolder\SearchCoppyFolder\SearchCoppyFolder\bin\Debug\net6.0\NLog.config
+2022-09-06 14:55:27.1141 Info Configuration initialized.
+2022-09-06 14:55:27.1141 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.0.1.1159. Product version: 5.0.1+a3718b8417284a90b0f73b2cbba47bc4067f6a3a. GlobalAssemblyCache: False
+2022-09-06 14:55:33.0326 Info Shutdown() called. Logger closing...
+2022-09-06 14:55:33.0326 Info Closing old configuration.
+2022-09-06 14:55:33.0326 Info Logger has been closed down.
+2022-09-06 14:55:33.0326 Info AppDomain Shutting down. LogFactory closing...
+2022-09-06 14:55:33.0326 Info LogFactory has been closed.
+2022-09-06 14:56:32.0611 Info Message Template Auto Format enabled
+2022-09-06 14:56:32.1254 Info Adding target FileTarget(Name=allfile)
+2022-09-06 14:56:32.1269 Info Adding target FileTarget(Name=errorfile)
+2022-09-06 14:56:32.1269 Info Adding target FileTarget(Name=infofile)
+2022-09-06 14:56:32.1476 Info Validating config: TargetNames=allfile, errorfile, infofile, ConfigItems=72, FilePath=D:\Works\Leopards\Projects\SearchCoppyFolder\SearchCoppyFolder\SearchCoppyFolder\bin\Debug\net6.0\NLog.config
+2022-09-06 14:56:32.1574 Info Configuration initialized.
+2022-09-06 14:56:32.1574 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.0.1.1159. Product version: 5.0.1+a3718b8417284a90b0f73b2cbba47bc4067f6a3a. GlobalAssemblyCache: False
+2022-09-06 14:56:38.7504 Info Shutdown() called. Logger closing...
+2022-09-06 14:56:38.7509 Info Closing old configuration.
+2022-09-06 14:56:38.7509 Info Logger has been closed down.
+2022-09-06 14:56:38.7509 Info AppDomain Shutting down. LogFactory closing...
+2022-09-06 14:56:38.7509 Info LogFactory has been closed.
+2022-09-07 08:12:09.1930 Info Message Template Auto Format enabled
+2022-09-07 08:12:09.3123 Info Adding target FileTarget(Name=allfile)
+2022-09-07 08:12:09.3123 Info Adding target FileTarget(Name=errorfile)
+2022-09-07 08:12:09.3135 Info Adding target FileTarget(Name=infofile)
+2022-09-07 08:12:09.3348 Info Validating config: TargetNames=allfile, errorfile, infofile, ConfigItems=72, FilePath=D:\Works\Leopards\Projects\SearchCoppyFolder\SearchCoppyFolder\SearchCoppyFolder\bin\Debug\net6.0\NLog.config
+2022-09-07 08:12:09.3348 Info Configuration initialized.
+2022-09-07 08:12:09.3503 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.0.1.1159. Product version: 5.0.1+a3718b8417284a90b0f73b2cbba47bc4067f6a3a. GlobalAssemblyCache: False
+2022-09-07 08:12:14.5460 Info Message Template Auto Format enabled
+2022-09-07 08:12:14.6108 Info Adding target FileTarget(Name=allfile)
+2022-09-07 08:12:14.6108 Info Adding target FileTarget(Name=errorfile)
+2022-09-07 08:12:14.6108 Info Adding target FileTarget(Name=infofile)
+2022-09-07 08:12:14.6322 Info Validating config: TargetNames=allfile, errorfile, infofile, ConfigItems=72, FilePath=D:\Works\Leopards\Projects\SearchCoppyFolder\SearchCoppyFolder\SearchCoppyFolder\bin\Debug\net6.0\NLog.config
+2022-09-07 08:12:14.6416 Info Configuration initialized.
+2022-09-07 08:12:14.6416 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.0.1.1159. Product version: 5.0.1+a3718b8417284a90b0f73b2cbba47bc4067f6a3a. GlobalAssemblyCache: False
+2022-09-07 08:12:15.9610 Info AppDomain Shutting down. LogFactory closing...
+2022-09-07 08:12:15.9723 Info LogFactory has been closed.
+2022-09-07 08:12:17.5300 Info Shutdown() called. Logger closing...
+2022-09-07 08:12:17.5300 Info Closing old configuration.
+2022-09-07 08:12:17.5367 Info Logger has been closed down.
+2022-09-07 08:12:17.5367 Info AppDomain Shutting down. LogFactory closing...
+2022-09-07 08:12:17.5367 Info LogFactory has been closed.

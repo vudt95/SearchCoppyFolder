@@ -33,7 +33,7 @@ namespace SearchCoppyFolder
             }
             catch (Exception)
             {
-                return null;
+                throw;
             }
         }
     }

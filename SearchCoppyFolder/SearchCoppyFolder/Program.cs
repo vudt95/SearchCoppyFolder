@@ -28,7 +28,8 @@ namespace SearchCoppyFolder
                     Console.WriteLine("2) Scanner folder not found");
                     Console.WriteLine("3) Scanner read name file");
                     Console.WriteLine("4) Scanner coppy all file");
-                    Console.WriteLine("5) Exit");
+                    Console.WriteLine("5) Scanner and coppy all file with search file");
+                    Console.WriteLine("6) Exit");
                     Console.Write("\r\nSelect an option: ");
                     switch (Console.ReadLine())
                     {
@@ -48,6 +49,11 @@ namespace SearchCoppyFolder
                             var runner3 = servicesProvider.GetRequiredService<Runner>();
                             runner3.CoppyAllFile("Scanner coppy all file");
                             break;
+                        case "5":
+                            var runner4 = servicesProvider.GetRequiredService<Runner>();
+                            runner4.CoppyFolderFile("Scanner and coppy all file with search file");
+                            break;
+
                     }
                     Console.WriteLine("Press ANY key to exit");
                     Console.ReadKey();

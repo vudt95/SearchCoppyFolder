@@ -1,0 +1,15 @@
+﻿{
+  "FileCoppy": "D:\\Works\\Leopards\\Projects\\SearchCoppyFolder\\SearchCoppyFolder\\SearchCoppyFolder\\bin\\Debug\\net6.0\\FileFolder.txt",
+  "FolderCoppy": "D:\\testcoppy",
+  "FolderSearch": "D:\\Works\\Leopards\\HisProject\\LeoHospital",
+  // Thư mục chứa các tên file cần đọc tên file
+  "PathFileWrite": "D:\\Works\\Leopards\\Download",
+  // Thư mục cần coppy
+  "PathFolderCoppy": "D:\\Works\\Leopards\\HisProject\\LeoHospital",
+  // Thư mục chứa file lưu danh sách các tệp không tìm thấy
+  "PathSaveFileNotFound": "D:\\testcoppy",
+  // Thư mục sau khi hoàn thành đọc tên file thì lưu vào
+  "PathSaveFileWrite": "D:\\testcoppy",
+  // Thư mục chứa file coppy
+  "PathSaveFolderCoppy": "D:\\testcoppy"
+}
