@@ -28,7 +28,7 @@ namespace SearchCoppyFolder
         /// <param name="isCoppy"></param>
         public async void DoAction(string name, bool isCoppy = false)
         {
-            _config = ConfigExtensions.GetConfig();
+            _config = await ConfigExtensions.GetConfig();
             Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | Read All folder and subfolder | {_config.FolderSearch}...");
             var dirs = Directory.GetDirectories(_config.FolderSearch, "*", SearchOption.AllDirectories);
             if (!dirs.Any())
@@ -143,7 +143,7 @@ namespace SearchCoppyFolder
         /// <param name="name"></param>
         public async void CoppyFolderFile(string name)
         {
-            _config = ConfigExtensions.GetConfig();
+            _config = await ConfigExtensions.GetConfig();
             Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | Read all folder name need coppy | {_config.FileCoppy}...");
             if (!File.Exists(_config.FileCoppy))
             {
@@ -185,7 +185,7 @@ namespace SearchCoppyFolder
 
         public async void ReadNameAllFiles(string name)
         {
-            _config = ConfigExtensions.GetConfig();
+            _config = await ConfigExtensions.GetConfig();
             if (_config == null)
             {
                 Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | ERROR | Can't read file config");
@@ -218,9 +218,9 @@ namespace SearchCoppyFolder
             }
         }
 
-        public void CoppyAllFile(string name)
+        public async void CoppyAllFile(string name)
         {
-            _config = ConfigExtensions.GetConfig();
+            _config = await ConfigExtensions.GetConfig();
             if (_config == null)
             {
                 Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | ERROR | Can't read file config");

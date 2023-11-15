@@ -61,3 +61,9 @@
 2023-11-15 07:38:43.2525 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.5.2160. Product version: 5.2.5+7c014325443d65541200b698a50b9dd4ec30c7f0. GlobalAssemblyCache: False
 2023-11-15 07:38:43.2873 Info Validating config: TargetNames=allfile, errorfile, infofile, ConfigItems=72, FilePath=D:\Works\Leopards\Projects\SearchCoppyFolder\SearchCoppyFolder\SearchCoppyFolder\bin\Debug\net7.0\NLog.config
 2023-11-15 07:38:43.3041 Info Configuration initialized.
+2023-11-15 08:05:16.7152 Info Registered target NLog.Targets.FileTarget(Name=allfile)
+2023-11-15 08:05:16.7277 Info Registered target NLog.Targets.FileTarget(Name=errorfile)
+2023-11-15 08:05:16.7277 Info Registered target NLog.Targets.FileTarget(Name=infofile)
+2023-11-15 08:05:16.7404 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.5.2160. Product version: 5.2.5+7c014325443d65541200b698a50b9dd4ec30c7f0. GlobalAssemblyCache: False
+2023-11-15 08:05:16.7623 Info Validating config: TargetNames=allfile, errorfile, infofile, ConfigItems=72, FilePath=D:\Works\Leopards\Projects\SearchCoppyFolder\SearchCoppyFolder\SearchCoppyFolder\bin\Debug\net7.0\NLog.config
+2023-11-15 08:05:16.7753 Info Configuration initialized.
