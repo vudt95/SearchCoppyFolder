@@ -29,7 +29,7 @@ namespace SearchCoppyFolder
         public async void DoAction(string name, bool isCoppy = false)
         {
             _config = await ConfigExtensions.GetConfig();
-            Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | Read All folder and subfolder | {_config.FolderSearch}...");
+            Console.WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss} | Read all folder and subfolder | {_config.FolderSearch}...");
             var dirs = Directory.GetDirectories(_config.FolderSearch, "*", SearchOption.AllDirectories);
             if (!dirs.Any())
             {
