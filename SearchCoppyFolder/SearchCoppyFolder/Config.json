@@ -1,6 +1,9 @@
 ﻿{
+  // Đọc dữ liệu trong file này để tìm kiếm và coppy
   "FileCoppy": "D:\\Works\\Leopards\\Projects\\SearchCoppyFolder\\SearchCoppyFolder\\SearchCoppyFolder\\FileFolder.txt",
+  // Thư mục coppy sang
   "FolderCoppy": "D:\\testcoppy",
+  // Thư mục tìm kiếm dữ liệu để coppy
   "FolderSearch": "D:\\Works\\Leopards\\HisProject\\SanNhiBG1",
   // Thư mục chứa các tên file cần đọc tên file
   "PathFileWrite": "D:\\Works\\Leopards\\Download",
